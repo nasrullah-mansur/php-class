@@ -1,15 +1,27 @@
 <?php
 
     include 'setting/db.php';
+    $id = 111;
 
     $users = ($db->query("SELECT * FROM users"))->fetch_all();
 
-    // echo '<pre>';
-    // print_r( $users );
-    // echo '</pre>';
+    $query = $db->prepare("SELECT * FROM users WHERE phone=? ORDER BY id DESC");
+    $query->bind_param("i", $id);
+    $final = $query->execute();
+    $final = $query->get_result();
+    $final = $final->fetch_all(MYSQLI_ASSOC);
 
-    // echo $_SESSION['insert_done'];
 
+    $output = $final;
+
+
+    echo '<pre>';
+    print_r($output);
+    echo '</pre>';
+
+
+    // $user_all = User::all();
+    // $user = DB::('users')->where('id', 23)->get();
 
 ?>
 
@@ -56,8 +68,8 @@
                             <td>' . $user['2'] . '</td>
                             <td>' . $user['3'] . '</td>
                             <td>
-                                <a class="btn btn-info" href="create.php?' . $user['0'] . '">Edit</a>
-                                <a class="btn btn-danger" href="#">Delete</a>
+                                <a class="btn btn-info" href="edit.php?id='. $user[0] .'">Edit</a>
+                                <a class="btn btn-danger delete-btn" data-location="setting/delete.php?id='.$user['0'].'" href="#">Delete</a>
                             </td>
                         </tr>';
                     } ?>
@@ -69,20 +81,47 @@
             </table>
         </div>
 
+
         <script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 
         <script src="assets/js/toastr.min.js"></script>
 
         <?php
-            if($_SESSION['insert_done']) {
+            if(isset($_SESSION['insert_done'])) {
                 echo "<script>toastr.success('User have been created successfully', 'Well Done')</script>";
             }
+
+            else if(isset($_SESSION['delete_done'])) {
+                echo "<script>toastr.success('User have been removed successfully', 'Well Done')</script>";
+            }
+
+            else if(isset($_SESSION['update_done'])) {
+                echo "<script>toastr.success('User have been updated successfully', 'Well Done')</script>";
+            }
+
 
 
             session_unset();
             session_destroy();
         ?>
         
+
+
+        <script>
+
+
+            let deleteBtn = $('.delete-btn');
+
+            deleteBtn.on('click', function(e) {
+                e.preventDefault();
+                let dataLocation = $(this).attr('data-location');
+                let confirmDelete = confirm('Are you sure to delete this item?');
+                if(confirmDelete) {
+                    window.location.replace(dataLocation);
+                }
+            });
+
+        </script>
     </body>
 </html>
