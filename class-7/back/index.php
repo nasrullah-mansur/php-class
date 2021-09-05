@@ -1,5 +1,11 @@
 ﻿<?php
+    include '../config.php';
     include 'includes/header.php';
+
+    $theme_info = DB::table('theme_infos')->first();
+    echo '<pre>';
+    print_r( $theme_info);
+    echo '</pre>';
 ?>
 
 <!-- Main Content -->
@@ -30,7 +36,7 @@
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <div class="form-group">                                    
-                                        <input type="text" class="form-control" name="name" placeholder="Theme name">
+                                        <input type="text" class="form-control" name="name" placeholder="Theme name" value="<?php echo $theme_info ? $theme_info['name'] : '' ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -45,32 +51,32 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">                                    
-                                        <input type="email" class="form-control" name="email" placeholder="Theme email">
+                                        <input type="email" class="form-control" name="email" placeholder="Theme email" value="<?php echo $theme_info ? $theme_info['email'] : '' ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">                                    
-                                        <input type="text" class="form-control" name="phone" placeholder="Theme phone">
+                                        <input type="text" class="form-control" name="phone" placeholder="Theme phone" value="<?php echo $theme_info ? $theme_info['phone'] : '' ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">                                    
-                                        <input type="text" class="form-control" name="address" placeholder="Theme address">
+                                        <input type="text" class="form-control" name="address" placeholder="Theme address" value="<?php echo $theme_info ? $theme_info['address'] : '' ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">                                    
-                                        <input type="text" class="form-control" name="hours" placeholder="Theme hours">
+                                        <input type="text" class="form-control" name="hours" placeholder="Theme hours" value="<?php echo $theme_info ? $theme_info['hours'] : '' ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">                                    
-                                        <input type="text" class="form-control" name="map" placeholder="Theme map">
+                                        <input type="text" class="form-control" name="map" placeholder="Theme map" value="<?php echo $theme_info ? $theme_info['map'] : '' ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">                                    
-                                        <input type="text" class="form-control" name="copyright" placeholder="Theme copyright">
+                                        <input type="text" class="form-control" name="copyright" placeholder="Theme copyright" value="<?php echo $theme_info ? $theme_info['copyright'] : '' ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">

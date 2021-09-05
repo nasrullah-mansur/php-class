@@ -88,6 +88,24 @@ class DB
     }
 
 
+    public function update($id, $form_val)
+    {
+        // return $form_val;
+        global $conn;
+        $table_name = self::$table;
+        $arr = array();
+        foreach($form_val as $key => $value) {
+            array_push($arr, "$key = '$value'");
+        }
+        $output = implode(', ', $arr);
+        $sql = "UPDATE $table_name SET $output WHERE id=$id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+    }
+
+    
+
+
 
 
 
